@@ -1,5 +1,5 @@
 const { expect, assert } = require("chai");
-const { ethers } = require("hardhat");
+const { ethers, waffle } = require("hardhat");
 const { impersonateFundErc20 } = require("../utils/utilities");
 
 const {
@@ -19,10 +19,13 @@ describe("FlashSwap Contract", () => {
 
   const DECIMALS = 18;
 
-  const BUSD_WHALE = "0xf977814e90da44bfa03b6295a0616a897441acec";
+  //const BUSD_WHALE = "0xaac32aad65b0c271c13e284678fc1400edbbd639";
+  const BUSD_WHALE = "0x28C6c06298d514Db089934071355E5743bf21d60";
+
   const BUSD = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
   const CAKE = "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82";
   const CROX = "0x2c094F5A7D1146BB93850f629501eB749f6Ed491";
+  const USDT = "0x55d398326f99059fF775485246999027B3197955";
 
   const BASE_TOKEN_ADDRESS = BUSD;
 
@@ -46,16 +49,16 @@ describe("FlashSwap Contract", () => {
     BORROW_AMOUNT = ethers.utils.parseUnits(borrowAmountHuman, DECIMALS);
 
     // Configure Funding - FOR TESTING ONLY
-    initialFundingHuman = "100";
+    initialFundingHuman = "2";
     FUND_AMOUNT = ethers.utils.parseUnits(initialFundingHuman, DECIMALS);
 
-    // Fund our Contract - FOR TESTING ONLY
-    await impersonateFundErc20(
-      tokenBase,
-      BUSD_WHALE,
-      FLASHSWAP.address,
-      initialFundingHuman
-    );
+    //Fund our Contract - FOR TESTING ONLY
+    // await impersonateFundErc20(
+    //   tokenBase,
+    //   BUSD_WHALE,
+    //   FLASHSWAP.address,
+    //   initialFundingHuman
+    // );
   });
 
   describe("Arbitrage Execution", () => {
@@ -99,5 +102,10 @@ describe("FlashSwap Contract", () => {
       );
       console.log("Balance of CAKE: " + formattedBalCAKE);
     });
+  });
+
+  it("general test", async () => {
+    const whale_balance = await provider.getBalance(BUSD_WHALE);
+    console.log(ethers.utils.formatUnits(whale_balance.toString(), DECIMALS));
   });
 });
