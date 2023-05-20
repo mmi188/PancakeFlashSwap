@@ -6,6 +6,8 @@ import "hardhat/console.sol";
 // Uniswap interface and library imports
 import "./libraries/UniswapV2Library.sol";
 import "./libraries/SafeERC20.sol";
+import "./libraries/SafeMath.sol";
+import "./libraries/Address.sol";
 import "./interfaces/IUniswapV2Router01.sol";
 import "./interfaces/IUniswapV2Router02.sol";
 import "./interfaces/IUniswapV2Pair.sol";
@@ -26,6 +28,8 @@ contract PancakeFlashSwap {
     address private constant BUSD = 0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56;
     address private constant CAKE = 0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82;
     address private constant CROX = 0x2c094F5A7D1146BB93850f629501eB749f6Ed491;
+    address private constant USDC = 0x55d398326f99059fF775485246999027B3197955;
+    
 
     // Trade Variables
     uint256 private deadline = block.timestamp + 1 days;
